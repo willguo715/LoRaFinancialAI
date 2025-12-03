@@ -2,9 +2,10 @@ import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 
 from peft import LoraConfig, get_peft_model, TaskType
+from modelscope import snapshot_download
 
-
-model_name = "Qwen/Qwen2.5-7B-Instruct"
+# 使用 ModelScope 下载模型（国内镜像，更稳定）
+model_name = "qwen/Qwen2.5-7B-Instruct"
 
 # 4bit 量化配置，需安装 bitsandbytes
 bnb_config = BitsAndBytesConfig(
@@ -17,8 +18,13 @@ bnb_config = BitsAndBytesConfig(
 
 def load_base_model():
     """加载分词器和基础模型（4bit 量化）"""
+    # 使用 ModelScope 下载模型到本地
+    print("正在从 ModelScope 下载模型...")
+    model_dir = snapshot_download(model_name, cache_dir="./models")
+    print(f"模型已下载到: {model_dir}")
+    
     tokenizer = AutoTokenizer.from_pretrained(
-        model_name,
+        model_dir,
         trust_remote_code=True,
     )
     # 有些 Qwen 模型没有 pad_token，统一用 eos_token 作为 pad
@@ -26,7 +32,7 @@ def load_base_model():
         tokenizer.pad_token = tokenizer.eos_token
 
     model = AutoModelForCausalLM.from_pretrained(
-        model_name,
+        model_dir,
         quantization_config=bnb_config,
         device_map="auto",
         trust_remote_code=True,
