@@ -1,5 +1,6 @@
 # 模型文件目录
 models/
+lora_finance_qa_adapter/
 *.bin
 *.safetensors
 *.pt
