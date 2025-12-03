@@ -103,7 +103,7 @@ def main():
 
     # 5. 配置优化器与训练超参数（适合小数据+单卡的轻量设置）
     learning_rate = 2e-4
-    num_epochs = 3
+    num_epochs = 2
     gradient_accumulation_steps = 4
     logging_steps = 10
 
