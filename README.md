@@ -1,6 +1,10 @@
 # LoRaFinancialAI
 1. 代码微调实现：基座大模型Qwen + QLoRa + 行业数据
 2. LlamaFactory 微调，Ollama部署， 调用
+   2.1 Easy-dataset制作数据集
+      （PDF文本转换MinerU、大模型API方式（Qwen3-Max提问题、DeepseekR1答案生成）prompt问题生成、答案生成、知识蒸馏、生成Alpaca、share GPT格式的文本、导入到LlamaFactory）
+   2.2 LlamaFactory 微调参数设置 并导出合并模型
+   2.3 vLLM部署并对比测试（Easy-dataset部署本地模型和Deepseek模型API）对比测试生成结果。
 
 
 ## 基座模型与LoRa微调后模型对同一问题的回答对比
